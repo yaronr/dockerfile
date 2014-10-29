@@ -5,6 +5,6 @@ RUN (echo "deb http://http.debian.net/debian/ wheezy main contrib non-free" > /e
 	echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jre-headless wget zip && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes openjdk-7-jre-headless wget zip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
