@@ -22,7 +22,7 @@ EXPOSE 8080
 
 CMD ["/bin/bash", "-e", "/usr/local/bin/run"]
 
-ADD ./server.xml ${TOMCAT_HOME}/conf
+ADD ./server.xml ${TOMCAT_HOME}/conf/
 
 #
 #ADD yourfile.war ${TOMCAT_HOME}/webapps/ROOT.war
