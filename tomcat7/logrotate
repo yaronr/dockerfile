@@ -1,0 +1,12 @@
+compress
+daily
+rotate 8
+missingok
+dateext
+
+
+/var/log/tomcat7/*.*{
+  olddir /var/log/tomcat7/old
+  copytruncate
+  size 500m
+}
