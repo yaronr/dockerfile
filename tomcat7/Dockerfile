@@ -2,6 +2,7 @@ FROM yaronr/openjdk-7-jre
 MAINTAINER yaronr
 
 ENV TOMCATVER 7.0.56
+ENV TOMCAT_HOME /opt/tomcat
 
 RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz http://apache.mivzakim.net/tomcat/tomcat-7/v${TOMCATVER}/bin/apache-tomcat-${TOMCATVER}.tar.gz  && \
     cd /opt && \
