@@ -13,9 +13,9 @@ RUN (wget --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz http://apache.mivzakim
 ADD ./run.sh /usr/local/bin/run
 
 # User limits
-RUN sed -i.bak '/\# End of file/ i\\# Following 2 lines added by Dockerfile' /etc/security/limits.conf
-RUN sed -i.bak '/\# End of file/ i\\*                hard    nofile          65536' /etc/security/limits.conf
-RUN sed -i.bak '/\# End of file/ i\\*                soft    nofile          65536\n' /etc/security/limits.conf
+RUN sed -i.bak '/\# End of file/ i\\# Following 2 lines added by Dockerfile' /etc/security/limits.conf && \
+	sed -i.bak '/\# End of file/ i\\*                hard    nofile          65536' /etc/security/limits.conf && \
+	sed -i.bak '/\# End of file/ i\\*                soft    nofile          65536\n' /etc/security/limits.conf
 
 EXPOSE 8080
 
