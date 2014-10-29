@@ -9,7 +9,9 @@ RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz h
     tar zxf /tmp/tomcat7.tar.gz && \
     mv /opt/apache-tomcat* ${TOMCAT_HOME} && \
     rm /tmp/tomcat7.tar.gz) && \
-    rm -rf ${TOMCAT_HOME}/webapps/docs ${TOMCAT_HOME}/webapps/examples ${TOMCAT_HOME}/webapps/ROOT
+    rm -rf ${TOMCAT_HOME}/webapps/docs ${TOMCAT_HOME}/webapps/
+    
+# 'Host manager' and 'manager' examples etc tomcat apps are are removed for security hardening
 
 ADD ./run.sh /usr/local/bin/run
 

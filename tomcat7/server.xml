@@ -15,7 +15,7 @@
 
 	<Service name="Catalina">
 
-		<Connector port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol" connectionTimeout="3000" keepAliveTimeout="13000"
+		<Connector port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol" connectionTimeout="3000" keepAliveTimeout="13000" URIEncoding="UTF-8"
 			acceptorThreadCount="4" enableLookups="false" maxConnections="100000" minSpareThreads="100" acceptCount="10000" compression="on"
 			compressionMinSize="256" maxKeepAliveRequests="-1" socket.appReadBufSize="1024" socket.appWriteBufSize="8192" socket.rxBufSize="8192"
 			socket.txBufSize="10240" maxThreads="500"
