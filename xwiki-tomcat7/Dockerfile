@@ -12,7 +12,6 @@ ENV TOMCAT_HOME /opt/tomcat
 #	apt-get clean
 
 RUN	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/xwiki.war "http://download.forge.ow2.org/xwiki/xwiki-enterprise-web-${XWIKI_VER}.war" && \
-	mkdir ${TOMCAT_HOME}/webapps/xwiki && \
     unzip -q /tmp/xwiki.war -d ${TOMCAT_HOME}/webapps/xwiki && \
     rm /tmp/xwiki.war && \
 	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/mysql-connector-java.tar.gz "http://dev.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.33.tar.gz" && \
