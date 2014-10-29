@@ -7,9 +7,9 @@ ENV TOMCAT_HOME /opt/tomcat
 RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz http://apache.mivzakim.net/tomcat/tomcat-7/v${TOMCATVER}/bin/apache-tomcat-${TOMCATVER}.tar.gz  && \
     cd /opt && \
     tar zxf /tmp/tomcat7.tar.gz && \
-    mv /opt/apache-tomcat* /opt/tomcat && \
+    mv /opt/apache-tomcat* ${TOMCAT_HOME} && \
     rm /tmp/tomcat7.tar.gz) && \
-    rm -rf /opt/tomcat/webapps/docs /opt/tomcat/webapps/examples /opt/tomcat/webapps/ROOT
+    rm -rf ${TOMCAT_HOME}/webapps/docs ${TOMCAT_HOME}/webapps/examples ${TOMCAT_HOME}/webapps/ROOT
 
 ADD ./run.sh /usr/local/bin/run
 
@@ -23,4 +23,4 @@ EXPOSE 8080
 CMD ["/bin/bash", "-e", "/usr/local/bin/run"]
 
 #
-#ADD yourfile.war /opt/tomcat/webapps/ROOT.war
+#ADD yourfile.war ${TOMCAT_HOME}/webapps/ROOT.war
