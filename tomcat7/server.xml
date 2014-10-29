@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<Server port="8005" shutdown="SHUTDOWN">
+	<Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+	<Listener className="org.apache.catalina.core.JasperListener" />
+	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+	<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+	<GlobalNamingResources>
+		<Resource name="UserDatabase" auth="Container" type="org.apache.catalina.UserDatabase" description="User database that can be updated and saved"
+			factory="org.apache.catalina.users.MemoryUserDatabaseFactory" pathname="conf/tomcat-users.xml" />
+
+	</GlobalNamingResources>
+
+	<Service name="Catalina">
+
+		<Connector port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol" connectionTimeout="3000" keepAliveTimeout="13000"
+			acceptorThreadCount="4" enableLookups="false" maxConnections="100000" minSpareThreads="100" acceptCount="10000" compression="on"
+			compressionMinSize="256" maxKeepAliveRequests="-1" socket.appReadBufSize="1024" socket.appWriteBufSize="8192" socket.rxBufSize="8192"
+			socket.txBufSize="10240" maxThreads="500"
+			compressableMimeType="text/html,text/xml,text/plain,text/javascript,application/x-javascript,application/javascript,application/xml,application/json"
+			redirectPort="8443" />
+
+		<Connector port="8009" protocol="org.apache.coyote.ajp.AjpNioProtocol" redirectPort="8443" />
+		<Engine name="Catalina" defaultHost="localhost">
+
+			<Realm className="org.apache.catalina.realm.LockOutRealm">
+				<Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase" />
+			</Realm>
+
+
+			<Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+
+<!-- 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="localhost_access_log." suffix=".txt"
+					pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+ -->
+				<Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="X-Forwarded-Proto"
+					internalProxies="10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|169\.254\.\d+\.\d+|127\.\d+\.\d+\.\d+|172\.(1[6-9]|2[0-9]|3[0-1])\.\d+\.\d+" />
+			</Host>
+		</Engine>
+	</Service>
+</Server>
