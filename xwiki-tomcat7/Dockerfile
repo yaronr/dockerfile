@@ -19,6 +19,7 @@ RUN	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/xwiki.war "http:/
 	mv  /tmp/mysql-connector-java*.jar ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/lib
 	
 ADD ./hibernate.cfg.xml ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/
+ADD ./xwiki.properties ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/
 
 # OK I don't have the time right now to handle the following as -e envs through a start / configure script:
 #ENV connection.url 
