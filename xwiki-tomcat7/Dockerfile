@@ -2,6 +2,7 @@ FROM yaronr/tomcat7
 MAINTAINER yaronr
 
 ENV XWIKI_VER 6.2.3
+ENV MYSQL_CONN_VER 5.1.33
 ENV TOMCAT_HOME /opt/tomcat
 
 #Unfortunately, this also installs Mysql client, server, tomcat, and pearl... 
@@ -14,11 +15,10 @@ ENV TOMCAT_HOME /opt/tomcat
 RUN	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/xwiki.war "http://download.forge.ow2.org/xwiki/xwiki-enterprise-web-${XWIKI_VER}.war" && \
     unzip -q /tmp/xwiki.war -d "${TOMCAT_HOME}/webapps/xwiki" && \
     rm /tmp/xwiki.war && \
-	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/mysql-connector-java.tar.gz "http://dev.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.33.tar.gz" && \
-	tar xzf  /tmp/mysql-connector-java.tar.gz -C ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/lib && \
-	rm /tmp/mysql-connector-java.tar.gz
-
-ADD ./hibernate.cfg.xml "${TOMCAT_HOME}/webapps/xwiki/WEB-INF"
+	wget --progress=bar:force --retry-connrefused -t 5 -P /tmp "http://central.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONN_VER}/mysql-connector-java-${MYSQL_CONN_VER}.jar" && \
+	mv  /tmp/mysql-connector-java*.jar ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/lib
+	
+ADD ./hibernate.cfg.xml ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/
 
 # OK I don't have the time right now to handle the following as -e envs through a start / configure script:
 #ENV connection.url 
