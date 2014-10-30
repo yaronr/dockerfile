@@ -9,7 +9,7 @@ ENV TOMCAT_HOME /opt/tomcat
 #RUN wget -q "http://maven.xwiki.org/public.gpg" -O- | apt-key add - && \
 #	wget "http://maven.xwiki.org/stable/xwiki-stable.list" -P /etc/apt/sources.list.d/ && \
 #	apt-get update && \
-#	apt-get install -y xwiki-enterprise-common && \
+#	apt-get install -y --no-install-recommends xwiki-enterprise-common && \
 #	apt-get clean
 
 RUN	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/xwiki.war "http://download.forge.ow2.org/xwiki/xwiki-enterprise-web-${XWIKI_VER}.war" && \
