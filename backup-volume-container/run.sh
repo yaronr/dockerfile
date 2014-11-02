@@ -37,24 +37,12 @@ duplicity --no-encryption $1 .
 # Now, start waiting for file system events on this path.
 # After an event, wait for a quiet period of N seconds before doing a backup
 
-while inotifywait -e $inotifywait_events . ; do
+while inotifywait -r -e $inotifywait_events . ; do
   echo "Change detected."
-  while inotifywait -t $2 -e $inotifywait_events . ; do
+  while inotifywait -r -t $2 -e $inotifywait_events . ; do
   	echo "waiting for quiet period.."
   done
   
   echo "starting backup"
   duplicity --no-encryption --allow-source-mismatch . $1
 done
-
-
-#inotifywait -m -e close_write,moved_to,moved_from,create,delete . | \
-#  while true; do 
-#	echo "Change detected."
-#    while read -r -t $2; do
-#      echo "waiting for quiet period.."
-#    done
-#    
-#	echo "starting backup"
-#    duplicity --no-encryption --allow-source-mismatch . $1
-#  done
