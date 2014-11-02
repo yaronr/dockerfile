@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM stackbrew/debian:wheezy
 
 MAINTAINER yaronr
 
