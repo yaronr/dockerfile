@@ -8,3 +8,5 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends openjdk-7-jre-headless wget zip nano && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
