@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! $# -gt 5 ]
+if [ ! $# -gt 4 ]
   then
   	echo
     echo "Invalid / incorrect / missing arguments supplied."
