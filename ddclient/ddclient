@@ -1,0 +1,16 @@
+# Configuration for ddclient scripts
+# generated from debconf on Tue Dec 9 19:52:12 EST 2008
+#
+# /etc/default/ddclient
+# Set to “true” if ddclient should be run every time a
+# new ppp connection is established. This might be useful,
+# if you are using dial-on-demand
+run_ipup=”false”
+
+# Set to “true” if ddclient should run in daemon mode
+# For Systemd (CoreOS), we use a non-daemon loop process
+run_daemon=”false”
+
+# Set the time interval between the updates of the dynamic DNS name in seconds.
+# This option only takes effect if the ddclient runs in daemon mode.
+daemon_interval=”300″
