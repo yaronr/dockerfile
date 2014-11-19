@@ -44,5 +44,8 @@ while inotifywait -r -e $inotifywait_events . ; do
   done
   
   echo "starting backup"
-  duplicity --no-encryption --allow-source-mismatch . $1
+  duplicity --no-encryption --allow-source-mismatch --full-if-older-than 5D . $1
+  echo "starting cleanup"
+  duplicity remove-all-but-n-full 1 --force --no-encryption --allow-source-mismatch $1  
+  duplicity cleanup --force $1
 done
