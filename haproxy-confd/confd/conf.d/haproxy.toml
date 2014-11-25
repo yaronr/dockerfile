@@ -1,0 +1,15 @@
+[template]
+prefix = "haproxy-discover"
+keys = [
+  "services",
+  "tcp-services"
+]
+
+owner = "haproxy"
+mode = "0644"
+src = "haproxy.tmpl"
+dest = "/etc/haproxy/haproxy.cfg"
+
+check_cmd = "/usr/sbin/haproxy -c -f {{ .src }}"
+reload_cmd = "/usr/bin/supervisorctl restart haproxy:*"
+
