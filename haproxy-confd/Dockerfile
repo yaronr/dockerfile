@@ -11,6 +11,7 @@ RUN (echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup) && \
 
 # Expose ports.
 EXPOSE 80
+EXPOSE 8080
 EXPOSE 443
 
 ENTRYPOINT ["/entrypoint.sh"]
@@ -20,7 +21,7 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     	ca-certificates \
 		software-properties-common python-software-properties \
 		haproxy -t wheezy-backports \
-		wget \
+		wget && \
 		apt-get remove --purge -y software-properties-common python-software-properties && \
 		apt-get clean && \
 		rm -rf /var/cache/apt/* /var/lib/apt/lists/* && \
