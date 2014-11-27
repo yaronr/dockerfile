@@ -5,7 +5,7 @@
 echo "[haproxy-confd] booting container. ETCD: $ETCD_NODE"
 
 # Loop until confd has updated the haproxy config
-until confd -onetime -node $ETCD; do
+until confd -onetime -node $ETCD_NODE; do
   echo "[haproxy-confd] waiting for confd to refresh haproxy.cfg"
   sleep 5
 done
