@@ -1,7 +1,6 @@
 global
   daemon
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
+  log /dev/log   local0
   pidfile /var/run/haproxy.pid
   nbproc  2 #no of processes
   maxconn 64000
@@ -10,6 +9,9 @@ global
 
 defaults
   log    global
+  option log-health-checks
+  # make sure log-format is on a single line
+  log-format {"type":"haproxy","timestamp":%Ts,"http_status":%ST,"http_request":"%r","remote_addr":"%ci","bytes_read":%B,"upstream_addr":"%si","backend_name":"%b","retries":%rc,"bytes_uploaded":%U,"upstream_response_time":"%Tr","upstream_connect_time":"%Tc","session_duration":"%Tt","termination_state":"%ts"}
   mode   http
   option httplog
   option dontlognull
