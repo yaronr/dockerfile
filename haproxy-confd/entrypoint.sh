@@ -19,4 +19,6 @@ until confd -onetime -node $ETCD_NODE; do
   sleep 5
 done
 
+echo "[haproxy-confd] Initial HAProxy config created. Starting confd"
+
 confd -node $ETCD_NODE
