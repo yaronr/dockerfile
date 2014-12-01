@@ -1,6 +1,7 @@
 global
   daemon
   log /dev/log   local0
+  log /dev/log   local1 notice
   pidfile /var/run/haproxy.pid
   nbproc  2 #no of processes
   maxconn 64000
