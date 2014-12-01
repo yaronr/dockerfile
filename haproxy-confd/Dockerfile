@@ -21,6 +21,7 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     	ca-certificates \
 		software-properties-common python-software-properties \
 		haproxy -t wheezy-backports \
+		rsyslog \
 		wget && \
 		apt-get remove --purge -y software-properties-common python-software-properties && \
 		apt-get clean && \
