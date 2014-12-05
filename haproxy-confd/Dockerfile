@@ -21,19 +21,11 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     	ca-certificates \
 		software-properties-common python-software-properties \
 		haproxy -t wheezy-backports \
-		rsyslog \
 		wget && \
 		apt-get remove --purge -y software-properties-common python-software-properties && \
 		apt-get clean && \
 		rm -rf /var/cache/apt/* /var/lib/apt/lists/* && \
 		sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy
-		
-#RUN sed 's/#$ModLoad imudp/$ModLoad imudp/' -i /etc/rsyslog.conf && \
-#	sed 's/#$UDPServerRun 514/$UDPServerRun 514/' -i /etc/rsyslog.conf && \
-#	sed 's/#$ModLoad imtcp/$ModLoad imtcp/' -i /etc/rsyslog.conf && \
-#	sed 's/#$InputTCPServerRun 514/$InputTCPServerRun 514/' -i /etc/rsyslog.conf
-
-RUN service rsyslog start
 
 ADD entrypoint.sh /entrypoint.sh
 ADD confd /etc/confd
