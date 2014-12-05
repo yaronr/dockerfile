@@ -33,7 +33,7 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
 #	sed 's/#$ModLoad imtcp/$ModLoad imtcp/' -i /etc/rsyslog.conf && \
 #	sed 's/#$InputTCPServerRun 514/$InputTCPServerRun 514/' -i /etc/rsyslog.conf
 
-RUN update-rc.d rsyslog enable
+RUN service rsyslog start
 
 ADD entrypoint.sh /entrypoint.sh
 ADD confd /etc/confd
