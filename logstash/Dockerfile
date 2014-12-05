@@ -12,3 +12,6 @@ RUN chmod a+x /entrypoint.sh
 
 EXPOSE 514 514/udp 9292 
 ENTRYPOINT ["/entrypoint.sh"]
+
+#Ignore /etc/hosts
+RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
