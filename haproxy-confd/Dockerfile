@@ -10,9 +10,9 @@ RUN (echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup) && \
 	(echo "deb http://cdn.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list)
 
 # Expose ports.
-EXPOSE 80
+#EXPOSE 80
 EXPOSE 8080
-EXPOSE 443
+#EXPOSE 443
 
 ENTRYPOINT ["/entrypoint.sh"]
 
