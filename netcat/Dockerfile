@@ -14,4 +14,4 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
 		apt-get clean && \
 		rm -rf /var/cache/apt/* /var/lib/apt/lists/* 
 
-#ENTRYPOINT ["ncat"]
+ENTRYPOINT ["netcat"]
