@@ -10,7 +10,10 @@ RUN wget --progress=bar:force --retry-connrefused -t 5 https://download.elastics
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
-EXPOSE 514 514/udp 9292 
+#sed is too complicated... really. give me a break
+ADD /patterns/haproxy /opt/logstash/patterns/haproxy
+
+EXPOSE 514 514/udp 
 ENTRYPOINT ["/entrypoint.sh"]
 
 #Ignore /etc/hosts
