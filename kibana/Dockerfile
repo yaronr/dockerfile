@@ -13,7 +13,7 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
 EXPOSE 5601
-ENTRYPOINT ["/entrypoint.sh","${elasticsearch_server_url}","${elasticsearch_server_port}"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 #Ignore /etc/hosts
 RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf

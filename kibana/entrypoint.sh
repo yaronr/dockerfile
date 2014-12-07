@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-sed "s/^elasticsearch:.*/elasticsearch: http:\/\/$1:$2/" -i /opt/kibana/config/kibana.yml
+sed "s/^elasticsearch:.*/elasticsearch: http:\/\/${elasticsearch_server_url}:${elasticsearch_server_port}/" -i /opt/kibana/config/kibana.yml
 
 echo "Taking a nap, to allow weave network to properly set up.."
 sleep 10
