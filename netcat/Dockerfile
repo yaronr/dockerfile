@@ -14,4 +14,7 @@ RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
 		apt-get clean && \
 		rm -rf /var/cache/apt/* /var/lib/apt/lists/* 
 
-ENTRYPOINT ["netcat"]
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
