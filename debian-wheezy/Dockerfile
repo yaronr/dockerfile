@@ -7,6 +7,6 @@ RUN (echo "deb http://http.debian.net/debian/ wheezy main contrib non-free" > /e
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python-pip wget zip nano curl && \
     pip install envtpl && \
-    apt-get uninstall python-pip && \
+    apt-get remove python-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
