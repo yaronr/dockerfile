@@ -7,7 +7,8 @@ ENV confd_ver 0.7.1
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-RUN	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
+RUN	(echo "deb http://cdn.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list) && \
+	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     	ca-certificates \
 		software-properties-common python-software-properties \
