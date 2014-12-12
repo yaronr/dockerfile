@@ -2,7 +2,7 @@
 prefix = "haproxy-discover"
 keys = [
   "services",
-  "tcp-services"
+  "tcp-services",
   "https"
 ]
 
