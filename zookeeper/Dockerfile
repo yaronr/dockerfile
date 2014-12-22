@@ -18,3 +18,6 @@ ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
 CMD ["start-foreground"]
 
 ADD ./zoo.cfg /opt/zookeeper/conf/
+
+#Ignore /etc/hosts
+RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
