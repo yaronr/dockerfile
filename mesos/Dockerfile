@@ -10,7 +10,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 	echo "deb http://repos.mesosphere.io/${DISTRO} ${CODENAME} main" | tee /etc/apt/sources.list.d/mesosphere.list && \
 	DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 	apt-get -y install -yq --no-install-recommends mesos marathon chronos docker.io unzip && \
-    apt-get clean
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /etc/mesos/zk && \
+    rm /etc/mesos-master/quorum 
 
 #Ignore /etc/hosts. Resolve this host via DNS
 RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
