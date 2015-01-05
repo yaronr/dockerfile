@@ -11,6 +11,7 @@ RUN	(echo "deb http://cdn.debian.net/debian wheezy-backports main" > /etc/apt/so
 	DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     	ca-certificates \
+    	libssl1.0.0 \
 		software-properties-common python-software-properties \
 		haproxy -t wheezy-backports && \
 		apt-get remove --purge -y software-properties-common python-software-properties && \
