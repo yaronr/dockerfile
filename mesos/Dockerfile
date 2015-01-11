@@ -9,7 +9,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 	CODENAME=wheezy && \
 	echo "deb http://repos.mesosphere.io/${DISTRO} ${CODENAME} main" | tee /etc/apt/sources.list.d/mesosphere.list && \
 	DEBIAN_FRONTEND=noninteractive apt-get -y update && \
-	apt-get -y install -yq --no-install-recommends mesos marathon chronos docker.io unzip && \
+	apt-get -y install -yq --no-install-recommends mesos marathon chronos unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm /etc/mesos/zk && \
