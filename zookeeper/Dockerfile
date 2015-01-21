@@ -1,7 +1,7 @@
 FROM yaronr/openjdk-7-jre
 MAINTAINER yaronr
 
-ENV ZOOKEEPER_VER 3.4.6
+ENV ZOOKEEPER_VER 3.5.0-alpha
 
 RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-${ZOOKEEPER_VER}/zookeeper-${ZOOKEEPER_VER}.tar.gz | tar -xzf - -C /opt && \
     mv /opt/zookeeper-${ZOOKEEPER_VER} /opt/zookeeper && \
