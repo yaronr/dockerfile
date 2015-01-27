@@ -1,7 +1,8 @@
 FROM yaronr/openjdk-7-jre
 MAINTAINER yaronr
 
-ENV TOMCATVER 7.0.56
+ENV TOMCATVER 7.0.57
+ENV MYSQL_CONNECTOR_JAVA_VER 5.1.34
 ENV TOMCAT_HOME /opt/tomcat
 
 RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz http://apache.mivzakim.net/tomcat/tomcat-7/v${TOMCATVER}/bin/apache-tomcat-${TOMCATVER}.tar.gz  && \
@@ -10,7 +11,12 @@ RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz h
     mv /opt/apache-tomcat* ${TOMCAT_HOME} && \
     rm /tmp/tomcat7.tar.gz) && \
     rm -rf ${TOMCAT_HOME}/webapps/ && \
-    mkdir ${TOMCAT_HOME}/webapps
+    mkdir ${TOMCAT_HOME}/webapps && \
+    wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/mysql-connector-java.tar.gz http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VER}.tar.gz && \
+    tar zxf /tmp/mysql-connector-java.tar.gz -C /tmp && \
+    rm /tmp/mysql-connector-java.tar.gz && \
+    mv /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VER}/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VER}-bin.jar /opt/tomcat/lib/ && \
+    rm -rf /tmp/mysql-connector-java-${MYSQL_CONNECTOR_JAVA_VER}
     
 # 'Host manager' and 'manager' examples etc tomcat apps are are removed for security hardening
 
