@@ -2,10 +2,10 @@
 
 if [[ -n $MULTICLOUD_DNS && -n MULTICLOUD_DNS_SEARCH ]] ; then
   echo "Replacing /etc/resolv.conf with:"
-  echo "$MULTICLOUD_DNS" 
-  echo "$MULTICLOUD_DNS_SEARCH"
-  echo "$MULTICLOUD_DNS" > /etc/resolv.conf
-  echo "$MULTICLOUD_DNS_SEARCH" >> /etc/resolv.conf
+  echo "nameserver $MULTICLOUD_DNS" 
+  echo "search $MULTICLOUD_DNS_SEARCH"
+  echo "nameserver $MULTICLOUD_DNS" > /etc/resolv.conf
+  echo "search $MULTICLOUD_DNS_SEARCH" >> /etc/resolv.conf
 fi;
 
 echo "Taking a nap, to allow weave network to properly set up.."
