@@ -5,7 +5,7 @@ entrypoint.sh {dynamic_dns_server} {your_domain} {password} {dynamic_dns_protoco
 Example:
   entrypoint.sh dynamicdns.park-your-domain.com mydomain.com 12345 namecheap www
 
-{sleep_interval_sec} default = 3600
+{sleep_interval_sec} default = 3600, -1 means execute once and exit.
 All other params are required.
 
 This process will exit, if the DNS registration is not successful (or it is terminated / interrupted).
