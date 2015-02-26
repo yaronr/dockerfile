@@ -1,15 +1,31 @@
-Dynamic DNS client
+**Dynamic DNS client
+**
 
-entrypoint.sh {dynamic_dns_server} {your_domain} {password} {dynamic_dns_protocol} {host} {sleep_interval_sec}
+Use this to register a server in a DNS that supports dynamic DNS.
 
-Example:
-  entrypoint.sh dynamicdns.park-your-domain.com mydomain.com 12345 namecheap www
+Usage:
+`docker run --rm yaronr/ddclient:latest  {dynamic_dns_server} {your_domain} {password} {dynamic_dns_protocol} {host} {sleep_interval_sec}`
 
-{sleep_interval_sec} default = 3600, -1 means execute once and exit.
+{sleep_interval_sec} default = 3600, -1 means execute once and exit, with the appropriate exit code. Any other number / default - This process will exit, if the DNS registration is not successful (or it is terminated / interrupted). Otherwise it will continuously update the DNS.
+
 All other params are required.
 
-This process will exit, if the DNS registration is not successful (or it is terminated / interrupted).
+**Example:
+**
 
+`docker run --rm yaronr/ddclient:latest dynamicdns.park-your-domain.com mydomain.com pass1234 namecheap my-dns-server-name
+`
 
-I use this process in CoreOS, as a 'sidekick' process that runs on the same machine as my VPN service, and I use this to update the IP of my VPN (which is also a Docker instance).
+I created this for two reasons:
 
+1) I have a VPN client (yaronr/softether) that runs as a service, on a random hosts in my cluster. Using this, I can always refer to my VPN as 'my-vpn.my-domain.com' - regardless of where the VPN docker instance will actually run.
+
+2) As it happens, I use CoreOS. Instead of manually doing `export FLEETCTL_TUNNEL=...` every time my cluster moves or one of my nodes die, I use the DDNS name in my export.
+
+`
+ExecStartPre=/bin/bash -cx  ' \
+  echo "Updating ddns" \
+  /usr/bin/docker run \
+  --rm \
+  yaronr/ddclient:latest dynamicdns.park-your-domain.com multicloud.me pass1234 namecheap vpn-${CLUSTER_NAME} -1'
+`
