@@ -1,81 +1,84 @@
 global
-  daemon
-  log logstash   local0
-  log logstash   local1 notice
-  pidfile /var/run/haproxy.pid
-  nbproc  2 #no of processes
-  maxconn 128000
-  user haproxy
-  group haproxy
+    daemon
+    log /dev/log   local0
+    log /dev/log   local1 notice
+    pidfile /var/run/haproxy.pid
+    nbproc  2 #no of processes
+    maxconn 128000
+    user haproxy
+    group haproxy
 
 defaults
-  log    global
-  option log-health-checks
-  # make sure log-format is on a single line
-  log-format {"type":"haproxy","timestamp":%Ts,"http_status":%ST,"http_request":"%r","remote_addr":"%ci","bytes_read":%B,"upstream_addr":"%si","backend_name":"%b","retries":%rc,"bytes_uploaded":%U,"upstream_response_time":"%Tr","upstream_connect_time":"%Tc","session_duration":"%Tt","termination_state":"%ts"}
-  mode   http
-  option httplog
-  option dontlognull
-  option forwardfor
-  option http-keep-alive
-  option http-tunnel
-  timeout connect 5000
-  timeout client 50000
-  timeout server 50000
-  errorfile 400 /etc/haproxy/errors/400.http
-  errorfile 403 /etc/haproxy/errors/403.http
-  errorfile 408 /etc/haproxy/errors/408.http
-  errorfile 500 /etc/haproxy/errors/500.http
-  errorfile 502 /etc/haproxy/errors/502.http
-  errorfile 503 /etc/haproxy/errors/503.http
-  errorfile 504 /etc/haproxy/errors/504.http
+    log    global
+    option log-health-checks
+    # make sure log-format is on a single line
+    log-format {"type":"haproxy","timestamp":%Ts,"http_status":%ST,"http_request":"%r","remote_addr":"%ci","bytes_read":%B,"upstream_addr":"%si","backend_name":"%b","retries":%rc,"bytes_uploaded":%U,"upstream_response_time":"%Tr","upstream_connect_time":"%Tc","session_duration":"%Tt","termination_state":"%ts"}
+    mode   http
+    option httplog
+    option dontlognull
+    option forwardfor
+    option http-keep-alive
+    option http-tunnel
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http-in
-  bind *:8080
+    bind *:8080
   
-  {{range $service := ls "/services"}}
-  
-  {{$key := printf "/services/%s/domain" $service}}  {{if exists $key}}
+    {{range $service := ls "/services"}}
+    
+    {{$key := printf "/services/%s/domain" $service}}  {{if exists $key}}
     acl host_{{$service}} hdr(host) -i {{getv $key}}
-  {{end}}
-  {{$key := printf "/services/%s/url_reg" $service}}  {{if exists $key}}
+    {{end}}
+    {{$key := printf "/services/%s/url_reg" $service}}  {{if exists $key}}
     acl host_{{$service}} url_reg -i {{getv $key}}
-  {{end}}  
-  acl {{$service}}_health path_beg /ping
-  {{end}}
-  
-  {{range $service := ls "/services"}}
-  use_backend {{$service}} if host_{{$service}}
-  use_backend {{$service}} if {{$service}}_health
-  {{end}}
-  
+    {{end}}  
+    acl {{$service}}_health path_beg /ping
+    {{end}}
+    
+    {{range $service := ls "/services"}}
+    use_backend {{$service}} if host_{{$service}}
+    use_backend {{$service}} if {{$service}}_health
+    {{end}}
+
 {{range $service := ls "/services"}}
 backend {{$service}}
-  balance leastconn
-  {{range $upstream := ls (printf "/services/%s/upstreams" $service)}}
-  server {{$upstream}} {{printf "/services/%s/upstreams/%s" $service $upstream | getv}} check
-  {{end}}
+    balance leastconn
+    {{range $upstream := ls (printf "/services/%s/upstreams" $service)}}
+    server {{$upstream}} {{printf "/services/%s/upstreams/%s" $service $upstream | getv}} check
+    {{end}}
 {{end}}
 
 
 {{range $name := ls "/tcp-services"}}
 listen {{$name}}
-  mode tcp
-  bind {{printf "/tcp-services/%s/ports" $name | getv}}
-  {{range $upstream := ls (printf "/tcp-services/%s/upstreams" $name)}}
-  server {{$upstream}} {{printf "/tcp-services/%s/upstreams/%s" $name $upstream | getv}} check
-  {{end}}
+    mode tcp
+    bind {{printf "/tcp-services/%s/ports" $name | getv}}
+    {{range $upstream := ls (printf "/tcp-services/%s/upstreams" $name)}}
+    server {{$upstream}} {{printf "/tcp-services/%s/upstreams/%s" $name $upstream | getv}} check
+    {{end}}
 {{end}}
 
 listen MyStats
-  mode http
-  bind 0.0.0.0:1000
-  stats enable
-  stats uri /
- 
-  # if authentication is wanted
-  acl auth_ok http_auth(stats-auth)
-  http-request auth unless auth_ok
+    mode http
+    bind 0.0.0.0:1000
+    stats enable
+    stats uri /
+    stats refresh 5s
+    stats show-node
+    stats show-legends
+    
+    # if authentication is wanted
+    acl auth_ok http_auth(stats-auth)
+    http-request auth unless auth_ok
  
 userlist stats-auth
-  user admin insecure-password p4ss
+    user admin insecure-password p4ss

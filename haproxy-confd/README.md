@@ -29,7 +29,7 @@ etcdctl set "/haproxy-discover/services/myapp/upstreams/nodeB" "2.3.4.5:80"
 Start the container making sure to expose port 80 on the host machine
 
 ```bash
-docker run -e ETCD_NODE=172.17.42.1:4001 -p 80:8080 yaronr/haproxy-confd
+docker run -e ETCD_NODE=172.17.42.1:4001 -p 1000:1000 -p 80:8080 yaronr/haproxy-confd
 ```
 
 
