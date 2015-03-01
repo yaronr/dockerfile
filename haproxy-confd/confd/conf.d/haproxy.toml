@@ -2,8 +2,7 @@
 prefix = "haproxy-discover"
 keys = [
   "services",
-  "tcp-services",
-  "https"
+  "tcp-services"
 ]
 
 owner = "haproxy"
