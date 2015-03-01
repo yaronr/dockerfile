@@ -19,11 +19,11 @@ RUN	(echo "deb http://cdn.debian.net/debian wheezy-backports main" > /etc/apt/so
 		rm -rf /var/cache/apt/* /var/lib/apt/lists/* && \
 		sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy
 
-ADD entrypoint.sh /entrypoint.sh
-ADD confd /etc/confd
-
 RUN wget --progress=bar:force --retry-connrefused -t 5 https://github.com/kelseyhightower/confd/releases/download/v${confd_ver}/confd-${confd_ver}-linux-amd64 -O /bin/confd && \
 	chmod +x /bin/confd
+
+ADD entrypoint.sh /entrypoint.sh
+ADD confd /etc/confd
 	
 # Expose ports.
 EXPOSE 8080
