@@ -24,7 +24,7 @@ until confd -onetime -node "$ETCD_NODE"; do
   if [ "$n" -eq "4" ];  then config_fail; fi
   echo "[haproxy-confd] waiting for confd to refresh haproxy.cfg"
   n=$((n+1))
-  sleep n
+  sleep $n
 done
 
 echo "[haproxy-confd] Initial HAProxy config created. Starting confd"
