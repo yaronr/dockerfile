@@ -17,6 +17,7 @@ if [ ! $# -gt 4 ]
 fi
 
 sleeptime=${6:-3600}
+ddclient_flags='-verbose -noquiet'
 
 on_die()
 {
@@ -33,9 +34,9 @@ sed -i 's/{protocol}/'$4'/' /etc/ddclient.conf &&
 sed -i 's/{host}/'$5'/' /etc/ddclient.conf &&
 
 if [ "$sleeptime" -eq -1 ] ; then
-	ddclient -daemon=0 -verbose | grep -i -q 'success';
+	ddclient -daemon=0 $ddclient_flags | grep -i -q 'success';
 else
-	while timeout 10 ddclient -daemon=0 -verbose | grep -i -q 'success'; do
+	while timeout 10 ddclient $ddclient_flags | grep -i -q 'success'; do
     	sleep $sleeptime
 	done
 fi

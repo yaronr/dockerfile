@@ -29,3 +29,7 @@ ExecStartPre=/bin/bash -cx  ' \
   --rm \
   yaronr/ddclient:latest dynamicdns.park-your-domain.com multicloud.me pass1234 namecheap vpn-${CLUSTER_NAME} -1'
 `
+
+**Note:
+**
+Some DNS providers require that a DNS 'A' record of the type you're trying to update, will pre-exist, for the update to succeed. To overcome this, just set a fake A record to 127.0.0.1 for the server you plan to update using ddclient (in the example above, vpn-${CLUSTER_NAME})
