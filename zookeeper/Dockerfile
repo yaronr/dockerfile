@@ -1,4 +1,4 @@
-FROM yaronr/openjdk-7-jre
+FROM multicloud/jre-8-oracle
 MAINTAINER yaronr
 
 ENV ZOOKEEPER_VER 3.4.6
