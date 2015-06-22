@@ -27,3 +27,4 @@ ADD confd /etc/confd
 	
 # Expose ports.
 EXPOSE 8080
+EXPOSE 8090
