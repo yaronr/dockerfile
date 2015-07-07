@@ -1,7 +1,7 @@
-FROM yaronr/openjdk-7-jre
+FROM multicloud/jre-8-oracle
 MAINTAINER yaronr
 
-ENV version 4.0.0-BETA2
+ENV version 4.1.1-linux-x64
 ENV elasticsearch_server_url elasticsearch
 ENV elasticsearch_server_port 9200
 
