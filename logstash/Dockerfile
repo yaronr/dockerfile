@@ -1,7 +1,7 @@
-FROM yaronr/openjdk-7-jre
+FROM multicloud/jre-8-oracle
 MAINTAINER yaronr
 
-ENV version 1.4.2
+ENV version 1.5.2
 
 RUN wget --progress=bar:force --retry-connrefused -t 5 https://download.elasticsearch.org/logstash/logstash/logstash-${version}.tar.gz -O /tmp/logstash.tar.gz && \
     (cd /tmp && tar zxf logstash.tar.gz && mv logstash-${version} /opt/logstash && \
