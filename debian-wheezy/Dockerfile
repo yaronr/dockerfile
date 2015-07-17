@@ -9,7 +9,7 @@ RUN (echo "deb http://cdn.debian.net/debian wheezy-backports main" > /etc/apt/so
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq --no-install-recommends && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends wget zip nano curl  && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends wget zip unzip nano curl  && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends --reinstall procps && \
     DEBIAN_FRONTEND=noninteractive apt-get clean && \
     rm -rf /var/lib/apt/lists/*
