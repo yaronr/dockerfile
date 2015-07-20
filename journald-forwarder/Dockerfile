@@ -1,4 +1,4 @@
-FROM yaronr/netcat
+FROM multicloud/netcat
 MAINTAINER yaronr
 
 #Ignore /etc/hosts. Resolve this host via DNS
