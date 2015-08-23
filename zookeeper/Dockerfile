@@ -1,17 +1,12 @@
 FROM multicloud/jre-8-oracle
 MAINTAINER yaronr
 
-#ENV ZOOKEEPER_VER 3.4.6
-ENV ZOOKEEPER_VER release-3.5.1-rc4
+ENV ZOOKEEPER_VER 3.4.6
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get -yq install ant && \
-	wget --no-check-certificate --progress=bar:force --retry-connrefused -t 5 https://github.com/apache/zookeeper/archive/${ZOOKEEPER_VER}.tar.gz -O /tmp/zookeeper.tar.gz && \
-    (cd /tmp && tar zxf zookeeper.tar.gz && mv zookeeper-* /opt/zookeeper && \
-    rm zookeeper.tar.gz && mkdir -p /tmp/zookeeper) && \
-	(cd /opt/zookeeper && ant) && \
-    DEBIAN_FRONTEND=noninteractive apt-get -yq remove ant && \
-    DEBIAN_FRONTEND=noninteractive apt-get clean
+RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-${ZOOKEEPER_VER}/zookeeper-${ZOOKEEPER_VER}.tar.gz | tar -xzf - -C /opt && \
+    mv /opt/zookeeper-${ZOOKEEPER_VER} /opt/zookeeper && \
+    rm /opt/zookeeper/conf/zoo_sample.cfg && \
+    mkdir -p /tmp/zookeeper 
 
 EXPOSE 2181 2888 3888
 
