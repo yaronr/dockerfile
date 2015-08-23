@@ -4,10 +4,14 @@ MAINTAINER yaronr
 #ENV ZOOKEEPER_VER 3.4.6
 ENV ZOOKEEPER_VER release-3.5.1-rc4
 
-RUN wget --no-check-certificate --progress=bar:force --retry-connrefused -t 5 https://github.com/apache/zookeeper/archive/${ZOOKEEPER_VER}.tar.gz -O /tmp/zookeeper.tar.gz && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get -yq install ant && \
+	wget --no-check-certificate --progress=bar:force --retry-connrefused -t 5 https://github.com/apache/zookeeper/archive/${ZOOKEEPER_VER}.tar.gz -O /tmp/zookeeper.tar.gz && \
     (cd /tmp && tar zxf zookeeper.tar.gz && mv zookeeper-* /opt/zookeeper && \
-    rm zookeeper.tar.gz && \
-    mkdir -p /tmp/zookeeper)
+    rm zookeeper.tar.gz && mkdir -p /tmp/zookeeper) && \
+	(cd /opt/zookeeper && ant) && \
+    DEBIAN_FRONTEND=noninteractive apt-get -yq remove ant && \
+    DEBIAN_FRONTEND=noninteractive apt-get clean
 
 EXPOSE 2181 2888 3888
 
