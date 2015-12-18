@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "taking a nap, to allow other zookeeper instances to start and update in DNS"
-sleep 30
+sleep 5
 
 if [[ -n $ZOOKEEPER_ID ]] ; then
   echo "Setting zookeeper ID to: $ZOOKEEPER_ID"
