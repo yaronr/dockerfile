@@ -34,9 +34,9 @@ duplicity $DUPLICITY_OPTIONS --no-encryption $1 .
 # Now, start waiting for file system events on this path.
 # After an event, wait for a quiet period of N seconds before doing a backup
 
-while inotifywait -r -e $inotifywait_events . ; do
+while inotifywait -r -e $inotifywait_events --exclude $INOTIFYWAIT_EXCLUDE . ; do
   echo "Change detected."
-  while inotifywait -r -t $2 -e $inotifywait_events . ; do
+  while inotifywait -r -t $2 -e $inotifywait_events --exclude $INOTIFYWAIT_EXCLUDE . ; do
   	echo "waiting for quiet period.."
   done
   
