@@ -33,3 +33,23 @@ ExecStartPre=/bin/bash -cx  ' \
 **Note:
 **
 Some DNS providers require that a DNS 'A' record of the type you're trying to update, will pre-exist, for the update to succeed. To overcome this, just set a fake A record to 127.0.0.1 for the server you plan to update using ddclient (in the example above, vpn-${CLUSTER_NAME})
+
+**Documentation**
+
+[ddclient documentation](https://sourceforge.net/p/ddclient/wiki/Home/)
+
+Supported protocols: 
+
+* dnspark
+* dslreports
+* dyndns1
+* dyndns2
+* easydns
+* namecheap
+* zoneedit1
+* Changeip
+* googledomains
+* duckdns
+* nsupdate
+
+See the [protocols page](https://sourceforge.net/p/ddclient/wiki/protocols/) for more details.
