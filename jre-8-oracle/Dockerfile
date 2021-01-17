@@ -1,4 +1,4 @@
-FROM multicloud/debian-wheezy
+FROM multicloud/debian-jessie
 MAINTAINER yaronr
 
 ENV JAVA_VERSION_MAJOR 8
