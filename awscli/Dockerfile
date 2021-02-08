@@ -1,11 +1,10 @@
-FROM ubuntu:trusty
+FROM alpine:3.13
 
 MAINTAINER yaronr
 
-# install the ec2 cli tools
-RUN apt-get update && \
-    apt-get install -yq --no-install-recommends  awscli groff-base && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && rm -rf /tmp
-
-#ENTRYPOINT ["aws"]
+RUN apk add --no-cache \
+        python3 \
+        py3-pip \
+    && pip3 install --upgrade pip \
+    && pip3 install awscli \
+    && rm -rf /var/cache/apk/*
